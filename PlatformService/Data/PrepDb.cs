@@ -5,10 +5,9 @@ namespace PlatformService.Data
 {
     public static class PrepDb
     {
-        public static void PrepPopulation(IServiceCollection app, bool isProd)
+        public static void PrepPopulation(WebApplication app, bool isProd)
         {
-            var serviceCollection = app.BuildServiceProvider();
-            using( var serviceScope = serviceCollection.CreateScope())
+            using( var serviceScope = app.Services.CreateScope())
             {
                 SeedData(serviceScope.ServiceProvider.GetService<AppDbContext>(), isProd);
             }
@@ -16,8 +15,8 @@ namespace PlatformService.Data
 
         private static void SeedData(AppDbContext context, bool isProd)
         {
-            // if(isProd)
-            // {
+            if(isProd)
+            {
                 System.Console.WriteLine("--> Attempting to apply migrations...");
                 try
                 {
@@ -27,7 +26,7 @@ namespace PlatformService.Data
                 {
                     System.Console.WriteLine($"--> Could not run migrations: {ex.Message}");
                 }
-            // }
+            }
 
             if(!context.Platforms.Any())
             {
