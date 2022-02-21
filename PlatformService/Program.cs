@@ -4,9 +4,7 @@ using PlatformService.SyncDataServices.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Add services to the container.
-
 if(builder.Environment.IsProduction())
 {
     System.Console.WriteLine("--> Using SQL Server");
